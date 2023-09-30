@@ -1,0 +1,48 @@
+@import "variables";
+
+.navbar{
+  padding: .8rem 1rem;
+  a{
+    text-decoration: none;
+    color: $black-color
+  }
+  .wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .item{
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+    .left,.right{
+      display: flex;
+      gap: .8rem;
+      align-items: center;
+    }
+    .center{
+      font-size: 2rem;
+
+    }
+    .storeIcons{
+      display: flex;
+      gap: .8rem;
+      align-items: center;
+    }
+    .cart{
+      position: relative;
+      span{
+        position: absolute;
+        top: -.6rem;
+        left: .6rem;
+        background-color: $sky-blue-color;
+        color:$white-color;
+        width:1.2rem;
+        height:1.2rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+      }
+    }
+  }
+}
