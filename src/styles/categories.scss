@@ -1,0 +1,84 @@
+@import "variables";
+.categories {
+  height: 80vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 0.5rem;
+  grid-template-areas:
+    "fir sec thi fou"
+    "fif sec six six";
+  div:hover{
+    a{
+      background-color: $sky-blue-color;
+      color:$white-color
+    }
+  }
+  .first {
+    grid-area: fir;
+    position: relative;
+    object-fit:cover;
+    a{
+      position:absolute;
+      top:50%;
+      left:40%
+    }
+  }
+  .second {
+    grid-area: sec;
+    position: relative;
+    object-fit:cover;
+    a{
+      position:absolute;
+      top:50%;
+      left:50%
+    }
+  }
+  .third {
+    grid-area: thi;
+    position: relative;
+    object-fit:contain;
+    a{
+      position:absolute;
+      top:50%;
+      left:40%
+    }
+  }
+  .fourth {
+    grid-area: fou;
+    position: relative;
+    object-fit:cover;
+    a{
+      position:absolute;
+      top:50%;
+      left:50%
+    }
+  }
+  .fifth {
+    grid-area: fif;
+    position: relative;
+    object-fit:cover;
+    a{
+      position:absolute;
+      top:50%;
+      left:35%
+    }
+  }
+  .sixth {
+    grid-area: six;
+    position: relative;
+    object-fit:cover;
+    a{
+      position:absolute;
+      top:50%;
+      left:40%
+    }
+  }
+  a{
+    background-color: $white-color;
+    padding:.4rem .7rem;
+    text-decoration: none;
+    color: $black-color;
+  }
+}

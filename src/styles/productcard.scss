@@ -1,0 +1,52 @@
+@import "variables";
+.link {
+  text-decoration: none;
+}
+.productcard {
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  height: 23rem;
+  gap: 0.5rem;
+  position: relative;
+  &:hover{
+    .firstImage{
+      z-index: 2;
+    }
+  }
+  .secondImage{
+    z-index: 1;
+  }
+  span {
+    position: absolute;
+    top: .5rem;
+    left: 3%;
+    padding: 0.2rem 0.5rem;
+    background-color: $white-color;
+    color: $sky-blue-color;
+    z-index: 3;
+  }
+
+  .imagecontainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+  }
+  .title {
+    color: $black-color;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+  }
+  .price {
+    display: flex;
+    gap: 2rem;
+    .oldprice {
+      text-decoration: line-through;
+      color: $light-grey-color;
+    }
+    .newprice {
+      color: $black-color;
+    }
+  }
+}

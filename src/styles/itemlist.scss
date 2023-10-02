@@ -1,0 +1,8 @@
+@import "variables";
+.itemlist {
+  .items {
+    display: flex;
+    gap: .5rem;
+    padding-left: 0;
+  }
+}

@@ -1,44 +1,50 @@
 @import "variables";
 
-.navbar{
-  padding: .8rem 1rem;
-  a{
+.navbar {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  height: 4rem;
+  background-color: $white-color;
+
+  a {
     text-decoration: none;
-    color: $black-color
+    color: $black-color;
   }
-  .wrapper{
+  .wrapper {
+    padding: 0.8rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .item{
+    .item {
       display: flex;
       align-items: center;
       font-size: 1rem;
     }
-    .left,.right{
+    .left,
+    .right {
       display: flex;
-      gap: .8rem;
+      gap: 0.8rem;
       align-items: center;
     }
-    .center{
+    .center {
       font-size: 2rem;
-
     }
-    .storeIcons{
+    .storeIcons {
       display: flex;
-      gap: .8rem;
+      gap: 0.8rem;
       align-items: center;
     }
-    .cart{
+    .cart {
       position: relative;
-      span{
+      span {
         position: absolute;
-        top: -.6rem;
-        left: .6rem;
+        top: -0.6rem;
+        left: 0.6rem;
         background-color: $sky-blue-color;
-        color:$white-color;
-        width:1.2rem;
-        height:1.2rem;
+        color: $white-color;
+        width: 1.2rem;
+        height: 1.2rem;
         display: grid;
         place-items: center;
         border-radius: 50%;

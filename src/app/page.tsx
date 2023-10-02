@@ -1,10 +1,20 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+
+import "@/styles/mainpage.scss";
+import Slider from "./components/Slider";
+import FeaturedProducts from "./components/FeaturedProducts";
+import Categories from "./components/Categories";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <h1>This is Home page</h1>
+    <main className="mainpage">
+      <Slider />
+      <FeaturedProducts type="featured" />
+      <Categories/>
+      <FeaturedProducts type="trending" />
     </main>
-  )
+  );
 }
+
+/**
+ how to make slider 
+ */
