@@ -13,6 +13,7 @@ const Slider = () => {
   function slideRightHandler() {
     setSlider(slider === 3 ? 0 : (s) => s + 1);
   }
+  console.log(process.env.NEXT_PUBLIC_SOME_VARIABLE, "bill");
   return (
     <div className="slider">
       <div

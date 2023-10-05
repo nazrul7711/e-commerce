@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -7,14 +7,17 @@ import {
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import {BsPerson } from "react-icons/bs";
-import "@/styles/navbar.scss"
+import { BsPerson } from "react-icons/bs";
+import "@/styles/navbar.scss";
 import Link from "next/link";
 import Cart from "./Cart";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const [open,setOpen]=useState<boolean>(false)
-  const loggedIn = false
+  const [open, setOpen] = useState<boolean>(false);
+  const loggedIn = false;
+  const { status } = useSession();
+  const isAuthenticated = status==="authenticated"
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -45,46 +48,50 @@ const Navbar = () => {
           <div className="item">
             <div>Children</div>
           </div>
+          <div className="item">
+            <Link href="/add-product">Add Product</Link>
+          </div>
         </div>
         <div className="center">
           <Link href={"/"}>NAZRUL STORE</Link>
         </div>
         <div className="right">
-          {loggedIn && <div className="item">Homepage</div>}
-          {loggedIn && <div className="item">About</div>}
-          {loggedIn && <div className="item">Contact</div>}
-          {loggedIn && <div className="item">Stores</div>}
+          {isAuthenticated && <div className="item">Homepage</div>}
+          {isAuthenticated && <div className="item">About</div>}
+          {isAuthenticated && <div className="item">Contact</div>}
+          {isAuthenticated && <div className="item">Stores</div>}
           <div className="item">
             <div className="storeIcons">
-              {loggedIn && (
+              {isAuthenticated && (
                 <div>
                   <AiOutlineSearch />
                 </div>
               )}
-              {loggedIn && (
+              {isAuthenticated && (
                 <div>
                   <BsPerson />
                 </div>
               )}
-              {loggedIn && (
+              {isAuthenticated && (
                 <div>
                   <AiOutlineHeart />
                 </div>
               )}
-              {loggedIn && (
+              {isAuthenticated && (
                 <div className="cart" onClick={() => setOpen((p) => !p)}>
                   <AiOutlineShoppingCart />
                   <span>0</span>
                 </div>
               )}
-              {!loggedIn && (
-                <div className="item">
-                  <Link href={"/auth"}>SignUp</Link>
-                </div>
-              )}
-              {!loggedIn && (
+
+              {!isAuthenticated && (
                 <div className="item">
                   <Link href={"/auth"}>SignIn</Link>
+                </div>
+              )}
+              {isAuthenticated && (
+                <div className="item signout">
+                  <div onClick={()=>signOut()}>SignOut</div>
                 </div>
               )}
             </div>

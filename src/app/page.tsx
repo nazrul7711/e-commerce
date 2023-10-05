@@ -5,6 +5,7 @@ import FeaturedProducts from "./components/FeaturedProducts";
 import Categories from "./components/Categories";
 
 export default function Home() {
+
   return (
     <main className="mainpage">
       <Slider />
@@ -55,4 +56,6 @@ modify permissions>edit>policy generator>s3 bucket policy>effect deny>principal 
 
 make sure to add /* in "Resource": "arn:aws:s3:::e-commerce-nazrul",
 
+
+firebase > add project> install firebase, install uuid> storage > getstarted>edit rules and publish>create firebase file in your project for configuration>project settings> import getStorage> export storage= getStorage(app)
  */

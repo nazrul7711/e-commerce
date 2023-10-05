@@ -1,21 +1,60 @@
 @import "variables";
 .signin {
-  width: 30rem;
-  background-color: yellow;
+  width: 25rem;
+  background-color: rgb(246, 246, 246);
   margin: 0 auto;
   margin-top: 10rem;
+  // min-height: 50vh;
+  padding:2rem 1rem;
+
   .form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    .clickable{
+      cursor: pointer;
+    }
+    .element {
+      display: flex;
+      flex-direction: column;
+      input {
+        padding: 0.8rem 0rem;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $light-grey-color;
+        width: 100%;
+        outline: none;
+        width: 15rem;
+        &::placeholder{
+          text-align: left;
+        }
+      }
+      p{
+        color: red;
+        margin: 0;
+        width: 15rem;
+      }
+    }
+    
+    .buttons{
+      display: flex;
+      gap: 1rem;
+      cursor: pointer;
+    }
     button {
-      width: 15rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 1rem;
+      width:max-content;
+      padding: 0.8rem 2rem;
+      border-radius: 1.5rem;
       border: none;
       background-color: $sky-blue-color;
       color: white;
+      font-size: 1.1rem;
+      cursor:pointer;
+    }
+    .google{
+      border-radius: 50%;
+      color: $sky-blue-color;
     }
   }
 }
