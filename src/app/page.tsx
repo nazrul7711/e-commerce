@@ -18,9 +18,12 @@ export default function Home() {
 
 /**
  how to make slider 
-product =>title, desc, img, img2 , price  , isNew
-category =>title,  desc, img, 
-subCategory=>title
+
+ dont define route handlers for server components only use it for client components
+
+ how can u fetch data in client components 
+
+ what is this pattern of fetching data in server and passing to client
 
 one-to-many relation 
 model User{
@@ -58,4 +61,19 @@ make sure to add /* in "Resource": "arn:aws:s3:::e-commerce-nazrul",
 
 
 firebase > add project> install firebase, install uuid> storage > getstarted>edit rules and publish>create firebase file in your project for configuration>project settings> import getStorage> export storage= getStorage(app)
+
+
+IMAGE 
+do u need height and widht if image is static or fill ?
+
+if fill is true what should be the position of parent element
+
+if u apply style to image will it work if fill is true what if not ?
+
+what is priority in Image 
+
+allways define height and width if using remote images link
+
+
+
  */

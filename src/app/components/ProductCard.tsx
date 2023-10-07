@@ -16,7 +16,7 @@ type ProductCardProp = {
 
 const ProductCard = ({ item }: { item: ProductCardProp }) => {
   return (
-    <Link href="/" className="link">
+    <Link href={`/product/${item.id}`} className="link">
       <div className="productcard">
         {item.isNew && <span>New Season</span>}
         <div className="imagecontainer">

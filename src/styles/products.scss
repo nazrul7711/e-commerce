@@ -2,10 +2,29 @@
 .products{
   margin-top: 5rem;
   display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .title{
+    text-transform: capitalize;
+    text-align: center;
+  }
+  .detail{
+    display: flex;
   gap: 3rem;
+
+  }
 
   .left{
     flex: 1;
+    .item{
+        label{
+          margin-left:.3rem ;
+        }
+      }
+    h1{
+      font-size: 1.2rem;
+      
+    }
 
   }
   .right{

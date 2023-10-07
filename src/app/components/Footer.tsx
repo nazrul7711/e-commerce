@@ -54,6 +54,7 @@ const Footer = () => {
               height={200}
               alt={"stripe"}
             />
+            
           </div>
         </div>
       </div>

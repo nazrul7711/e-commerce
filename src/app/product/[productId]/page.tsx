@@ -4,10 +4,21 @@ import "@/styles/product.scss";
 import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
 import { BiGitCompare } from "react-icons/bi";
 import Image from "next/image";
+import useSwr from "swr"
+import fetcher from "@/app/utils/fetcher";
 
-const Product = () => {
+const Product = ({params}:{params:{productId:string}}) => {
   const [imageNum, setImageNum] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
+  let productId = params.productId
+
+
+  let { data, isLoading, error } = useSwr(
+    `/api/getProduct?id=${productId}`,
+    fetcher
+  );
+  console.log(data,"what")
+
   let item = {
     title: "Long Sleeve Graphic T-Shirt",
     price: 19.9,
@@ -16,20 +27,28 @@ const Product = () => {
     quantity: 1,
     images: ["/male1.jpg", "/male2.jpg"],
   };
+
+  let images = [data?.img,data?.img2]
+  if(isLoading){
+    return <p>Loading...</p>
+  }
+  if(error){
+    return <p>Some error occured while loading data</p>
+  }
   return (
     <div className="product">
       <div className="left">
         <div className="left">
           <div className="clickable" onClick={() => setImageNum(0)}>
-            <Image src={item.images[0]} width={100} height={100} alt="top" />
+            <Image src={data?.img} width={100} height={100} alt="top" />
           </div>
           <div className="clickable" onClick={() => setImageNum(1)}>
-            <Image src={item.images[1]} width={100} height={100} alt="top" />
+            {data?.img2 && <Image src={data?.img2} width={100} height={100} alt="top" />}
           </div>
         </div>
         <div className="right">
           <Image
-            src={item.images[imageNum]}
+            src={images[imageNum]}
             width={400}
             height={500}
             alt="top"
@@ -37,9 +56,9 @@ const Product = () => {
         </div>
       </div>
       <div className="right">
-        <h1>{item.title}</h1>
-        <div className="price">${item.price}</div>
-        <div className="desc">{item.description}</div>
+        <h1>{data?.title}</h1>
+        <div className="price">${data?.price}</div>
+        <div className="desc">{data?.desc}</div>
         <div className="increasesection">
           <button onClick={() => setQuantity((p) => p === 1 ? 1: p - 1)}>-</button>
           <span>{quantity}</span>

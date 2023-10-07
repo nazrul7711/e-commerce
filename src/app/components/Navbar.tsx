@@ -49,7 +49,7 @@ const Navbar = () => {
             <div>Children</div>
           </div>
           <div className="item">
-            <Link href="/add-product">Add Product</Link>
+            <Link href="/addProduct">Add Product</Link>
           </div>
         </div>
         <div className="center">

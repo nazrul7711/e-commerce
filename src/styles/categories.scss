@@ -9,6 +9,9 @@
   grid-template-areas:
     "fir sec thi fou"
     "fif sec six six";
+  a{
+    text-transform: uppercase;
+  }
   div:hover{
     a{
       background-color: $sky-blue-color;

@@ -1,54 +1,28 @@
 import "@/styles/itemlist.scss"
 import ProductCard from "./ProductCard";
+import useSwr from "swr"
+import fetcher from "../utils/fetcher";
 
-const ItemList = () => {
-  let data = [
-    {
-      id: 1,
-      img: "/double1.jpg",
-      img2: "/double2.jpg",
-      title: "long sleeve jacket",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "/coat.jpg",
-      title: "coat",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: "/hat.jpg",
-      title: "Hat",
-      isNew: false,
-      oldPrice: 231,
-      price: 12,
-    },
-    // {
-    //   id: 4,
-    //   img: "/officeWear.jpg",
-    //   title: "Office Coat",
-    //   isNew: true,
-    //   oldPrice: 231,
-    //   price: 12,
-    // },
-    {
-      id: 5,
-      img: "/OversizeShirt.jpg",
-      title: "Oversize Shirt",
-      isNew: false,
-      oldPrice: 231,
-      price: 12,
-    },
-  ];
+
+
+
+
+const ItemList = ({categoryId}:{categoryId:string}) => {
+  let {data,isLoading,error} = useSwr("http://localhost:3000/api/getProducts",fetcher);
+  console.log(data?.products)
+  let products = data?.products.filter(item=>item.categoryId===categoryId)
+  console.log(products)
+  if(isLoading){
+    return <p>Loading...</p>
+  }
+  if(error){
+    return <p>Encountered Error fetching data</p>
+  }
+
   return (
     <div className="itemlist">
       <ul className="items">
-        {data.map((item) => (
+        {products?.map((item:any) => (
           <ProductCard item={item} key={item.id}/>
         ))}
       </ul>

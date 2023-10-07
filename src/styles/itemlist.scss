@@ -1,8 +1,10 @@
 @import "variables";
 .itemlist {
   .items {
-    display: flex;
-    gap: .5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    grid-template-rows: 23rem;
+    gap: 1rem;
     padding-left: 0;
   }
 }

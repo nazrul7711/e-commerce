@@ -61,23 +61,30 @@ model Product{
   desc String?
   img String?
   img2  String?
+  oldPrice Int?
   price   Int?
   isNew Boolean
-  user User @relation(fields: [userId],references: [id])
-  userId String @db.ObjectId 
-  category Category @relation(fields: [categoryId],references: [id])
-  categoryId String @db.ObjectId
+  user User ? @relation(fields: [userId],references: [id])
+  userId String ? @db.ObjectId 
+  subcategory Subcategory ? @relation(fields: [subcategoryId],references: [id])
+  subcategoryId String @db.ObjectId
+  category Category ? @relation(fields: [categoryId],references: [id])
+  categoryId String ? @db.ObjectId
 }
+
 
 model Category{
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title String
   desc String?
   img String?
+  subcategories Subcategory[]
   products Product[]
 }
 model Subcategory{
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title String
-
+  products Product[]
+  categoryId String ? @db.ObjectId
+  category Category ? @relation(fields: [categoryId],references: [id])
 }
