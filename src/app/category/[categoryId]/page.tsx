@@ -3,7 +3,7 @@ import ItemList from "@/app/components/ItemList";
 import fetcher from "@/app/utils/fetcher";
 import "@/styles/products.scss";
 import Image from "next/image";
-import { ReactNode, useState } from "react";
+import {  useState } from "react";
 import useSwr from "swr";
 
 const ProductsId = ({ params }: { params: { categoryId: string } }) => {
@@ -14,12 +14,18 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
     `/api/getCategory?category=${categoryId}`,
     fetcher
   );
+   let { data: subCatagoryDet } = useSwr(
+    `/api/getSubCategory?categoryId=${categoryId}`,
+    fetcher
+  );
   if (isLoading) {
     return <p>Loading...</p>;
   }
   if (error) {
     return <p>Error occured while loading data</p>;
   }
+  console.log(subCatagoryDet.msg,"sub")
+
   return (
     <div className="products">
       <h1 className="title">{data?.title} Section</h1>
@@ -27,18 +33,14 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
         <div className="left">
           <div>
             <h1>Product Categories</h1>
-            <div className="item">
-              <input type="checkbox" id="shoes" />
-              <label htmlFor="shoes">Shoes</label>
-            </div>
-            <div className="item">
-              <input type="checkbox" id="Skirts" />
-              <label htmlFor="Skirts">Skirts</label>
-            </div>
-            <div className="item">
-              <input type="checkbox" id="coats" />
-              <label htmlFor="coats">Coats</label>
-            </div>
+            {subCatagoryDet?.msg.map((item:any) => (
+              
+              <div className="item">
+                <input type="checkbox" id={item.title} />
+                <label htmlFor={item.title}>{item.title}</label>
+              </div>
+            ))}
+
           </div>
           <div>
             <h1>Filter By Price</h1>
@@ -78,7 +80,7 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
           <div className="imgcontainer">
             <Image src={data?.img} fill={true} alt="topimage" />
           </div>
-          <ItemList categoryId={categoryId}/>
+          <ItemList categoryId={categoryId} />
         </div>
       </div>
     </div>

@@ -13,27 +13,30 @@ const AddProduct = () => {
     productImg2?: string;
     title: string;
     description: string;
-    price: number;
-    isNew: boolean;
+    price: string;
+    isNew: string;
     subcategory: string;
-    oldprice: number;
+    oldprice: string;
+    category: string;
   }
   interface FormTypeII {
     title: String;
     desc?: String;
     img?: String;
+    subcategories?: String;
   }
   const submitHandler3: SubmitHandler<FormTypeII> = async (d) => {
     let res = await axios.post("/api/addSubcategory", {
       title: d.title,
     });
 
-    console.log(res);
+
   };
   const submitHandler2: SubmitHandler<FormTypeII> = async (d) => {
     let formData = new FormData();
     formData.append("title", d.title);
     formData.append("desc", d.desc);
+    formData.append("subcategories", d.subcategories);
     formData.append("img", d.img[0]);
     let res = await axios.post("/api/addCategory", formData, {
       headers: {
@@ -44,14 +47,16 @@ const AddProduct = () => {
   };
   const submitHandler: SubmitHandler<FormType> = async (d) => {
     let formData = new FormData();
+    console.log(d);
     formData.append("productImage", d.productImg[0]);
     formData.append("productImage2", d.productImg2[0]);
     formData.append("title", d.title);
     formData.append("description", d.description);
-    formData.append("price", String(d.price));
-    formData.append("isNew", String(d.isNew));
+    formData.append("price", d.price);
+    formData.append("isNew", d.isNew);
     formData.append("subcategory", d.subcategory);
-    formData.append("oldPrice", parseInt(d.oldprice));
+    formData.append("oldPrice", d.oldprice);
+    formData.append("category", d.category);
     let res = await axios.post("/api/addProduct", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -94,6 +99,11 @@ const AddProduct = () => {
         />
         <input
           type="text"
+          {...register1("category", { required: "field is needed" })}
+          placeholder="category"
+        />
+        <input
+          type="text"
           {...register1("subcategory", { required: "field is needed" })}
           placeholder="subcategory"
         />
@@ -116,8 +126,14 @@ const AddProduct = () => {
           placeholder="desc"
         />
         <input
+          type="text"
+          {...register2("subcategories", { required: "Title is required" })}
+          placeholder="subcategories"
+        />
+        <input
           type="file"
           {...register2("img", { required: "This field is required" })}
+          placeholder="img"
         />
         <button type="submit">Submit</button>
       </form>

@@ -25,6 +25,7 @@ export async function POST(req: Request) {
   const isNew = Boolean(data.get("isNew") as string);
   const oldPrice = parseInt(data.get("oldprice") as string);
   const subcategory = data.get("subcategory") as string;
+  const category = data.get("category") as string;
 
   let files = [productImg];
 
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
     });
   });
   const uploadResults: string[] = (await Promise.all(result)) as string[];
+  console.log(category,"caty")
   let newProduct = await prismadb.product.create({
     data: {
       title,
@@ -69,7 +71,8 @@ export async function POST(req: Request) {
       price: price,
       isNew: isNew,
       oldPrice,
-      subcategoryId:subcategory
+      subcategoryId:subcategory,
+      categoryId:category
     },
   });
   return NextResponse.json({ message: newProduct });

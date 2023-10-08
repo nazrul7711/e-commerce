@@ -10,7 +10,7 @@ import fetcher from "../utils/fetcher";
 const ItemList = ({categoryId}:{categoryId:string}) => {
   let {data,isLoading,error} = useSwr("http://localhost:3000/api/getProducts",fetcher);
   console.log(data?.products)
-  let products = data?.products.filter(item=>item.categoryId===categoryId)
+  let products = data?.products?.filter(item=>item.categoryId===categoryId)
   console.log(products)
   if(isLoading){
     return <p>Loading...</p>

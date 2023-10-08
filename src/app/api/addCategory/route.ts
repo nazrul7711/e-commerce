@@ -16,15 +16,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ msg: "user is not logged in" });
   }
   let res = await req.formData();
-  console.log(res)
+
   let title: string = res.get("title") as unknown as string;
   let desc: string = res.get("desc") as unknown as string;
   let img: File = res.get("img") as unknown as File;
 
+
+
   const storage = getStorage(app);
   const storageRef = ref(storage, title);
   const uploadTask = uploadBytesResumable(storageRef, await img.arrayBuffer());
-  // await file.arrayBuffer();
+
 
   let imgLink = () => {
     return new Promise((resolve, reject) => {
@@ -49,13 +51,15 @@ export async function POST(req: Request) {
     });
   };
   let link = await imgLink() as string
+
+  
   let newCategory = await prismadb.category.create({
-    data:{
+    data: {
       title,
       desc,
-      img:link
-    }
-  })
+      img: link
+    },
+  });
   if(newCategory){
     return NextResponse.json({ msg:"category created" });
   }
