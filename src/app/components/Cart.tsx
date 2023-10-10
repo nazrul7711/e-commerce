@@ -1,41 +1,38 @@
 import "@/styles/cart.scss";
 import Image from "next/image";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { ProductType, onreset, removeFromCart } from "../redux/cartReducer";
 const Cart = () => {
-  let items = [
-    {
-      id: 1,
-      img: "/double1.jpg",
-      img2: "/double2.jpg",
-      title: "long sleeve jacket",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni delectus atque voluptate ipsam sapiente ullam cupiditate animi voluptatibus exercitationem doloremque sint, alias quasi placeat, nemo quas nisi! Deleniti, alias sapiente.",
-    },
-    {
-      id: 2,
-      img: "/coat.jpg",
-      title: "coat",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni delectus atque voluptate ipsam sapiente ullam cupiditate animi voluptatibus exercitationem doloremque sint, alias quasi placeat, nemo quas nisi! Deleniti, alias sapiente.",
-    },
-  ];
-  return (
+  let items = useSelector<RootState, ProductType[]>(
+    (state) => state.carts.products
+  );
+  let dispatch = useDispatch<AppDispatch>();
+  let totalPrice = ()=>{
+    let total = 0
+    items.forEach(item=>total+=item.quantity*item.price)
+    return total
+  }
+  console.log(typeof totalPrice,"likk")
+  return (  
     <div className="cartdiv">
       <h1>Products in your cart</h1>
       <ul>
-        {items.map((item) => (
+        {items.map((item: ProductType) => (
           <div className="item">
-            <Image src={item.img} height={100} width={90} alt="img" />
+            <Image src={item.images[0]} height={100} width={90} alt="img" />
             <div className="details">
               <div className="title">{item.title}</div>
-              <div className="desc">{item.desc?.substring(0, 100)}</div>
-              <div className="price">2 X {item.price}</div>
+              <div className="desc">{item.description?.substring(0, 100)}</div>
+              <div className="price">
+                {item.quantity} X {item.price}
+              </div>
             </div>
-            <div className="delete">
+            <div
+              className="delete"
+              onClick={() => dispatch(removeFromCart(item.id))}
+            >
               <AiOutlineDelete size={30} />
             </div>
           </div>
@@ -43,10 +40,10 @@ const Cart = () => {
       </ul>
       <div className="total">
         <h1>SUBTOTAL</h1>
-        <div className="price">${19.9}</div>
+        <div className="price">${totalPrice()}</div>
       </div>
       <button className="proceed">PROCEED TO CHECKOUT</button>
-      <p className="reset">RESET CART</p>
+      <p className="reset" onClick={()=>dispatch(onreset())}>RESET CART</p>
     </div>
   );
 };

@@ -4,6 +4,9 @@ import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SessProvider from "./providers/SessionProvider";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import ReduxProvider from "./providers/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <ReduxProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ReduxProvider>
         </SessProvider>
       </body>
     </html>

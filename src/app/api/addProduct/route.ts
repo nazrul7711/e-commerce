@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/app/utils/prismaclient";
-import { blob } from "stream/consumers";
+
 import {
   getStorage,
   ref,
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   const isNew = Boolean(data.get("isNew") as string);
   const oldPrice = parseInt(data.get("oldprice") as string);
   const subcategory = data.get("subcategory") as string;
-  const category = data.get("category") as string;
+
 
   let files = [productImg];
 
@@ -61,7 +61,6 @@ export async function POST(req: Request) {
     });
   });
   const uploadResults: string[] = (await Promise.all(result)) as string[];
-  console.log(category,"caty")
   let newProduct = await prismadb.product.create({
     data: {
       title,
@@ -72,7 +71,6 @@ export async function POST(req: Request) {
       isNew: isNew,
       oldPrice,
       subcategoryId:subcategory,
-      categoryId:category
     },
   });
   return NextResponse.json({ message: newProduct });

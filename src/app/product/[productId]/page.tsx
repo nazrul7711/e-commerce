@@ -6,29 +6,37 @@ import { BiGitCompare } from "react-icons/bi";
 import Image from "next/image";
 import useSwr from "swr"
 import fetcher from "@/app/utils/fetcher";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/redux/store";
+import { ProductType, addToCart } from "@/app/redux/cartReducer";
 
 const Product = ({params}:{params:{productId:string}}) => {
   const [imageNum, setImageNum] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
   let productId = params.productId
 
+  let ad = useSelector((state:RootState)=>state.carts.products)
+  console.log(ad,"kill")
+  let dispatch = useDispatch<AppDispatch>()
 
   let { data, isLoading, error } = useSwr(
     `/api/getProduct?id=${productId}`,
     fetcher
   );
-  console.log(data,"what")
 
-  let item = {
-    title: "Long Sleeve Graphic T-Shirt",
-    price: 19.9,
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis ex veniam praesentium distinctio provident tempore. Delectus laborum unde, vel ratione neque assumenda aut quibusdam quae.",
-    quantity: 1,
-    images: ["/male1.jpg", "/male2.jpg"],
-  };
+
+
 
   let images = [data?.img,data?.img2]
+
+  let currentProduct:ProductType = {
+    title:data?.title,
+    description:data?.desc,
+    price:data?.price,
+    quantity,
+    id:data?.id,
+    images
+    }
   if(isLoading){
     return <p>Loading...</p>
   }
@@ -64,7 +72,7 @@ const Product = ({params}:{params:{productId:string}}) => {
           <span>{quantity}</span>
           <button onClick={() => setQuantity((p) => p +1)}>+</button>
         </div>
-        <button className="cart">
+        <button className="cart" onClick={()=>dispatch(addToCart(currentProduct))}>
           <AiOutlineShoppingCart />
           ADD TO CART
         </button>

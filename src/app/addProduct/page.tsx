@@ -56,7 +56,7 @@ const AddProduct = () => {
     formData.append("isNew", d.isNew);
     formData.append("subcategory", d.subcategory);
     formData.append("oldPrice", d.oldprice);
-    formData.append("category", d.category);
+
     let res = await axios.post("/api/addProduct", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -96,11 +96,6 @@ const AddProduct = () => {
           type="text"
           {...register1("isNew", { required: "field is needed" })}
           placeholder="isNew"
-        />
-        <input
-          type="text"
-          {...register1("category", { required: "field is needed" })}
-          placeholder="category"
         />
         <input
           type="text"

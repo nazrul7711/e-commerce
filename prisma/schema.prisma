@@ -68,8 +68,6 @@ model Product{
   userId String ? @db.ObjectId 
   subcategory Subcategory ? @relation(fields: [subcategoryId],references: [id])
   subcategoryId String @db.ObjectId
-  category Category ? @relation(fields: [categoryId],references: [id])
-  categoryId String ? @db.ObjectId
 }
 
 
@@ -79,7 +77,7 @@ model Category{
   desc String?
   img String?
   subcategories Subcategory[]
-  products Product[]
+
 }
 model Subcategory{
   id            String    @id @default(auto()) @map("_id") @db.ObjectId

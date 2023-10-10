@@ -1,33 +1,39 @@
-import "@/styles/itemlist.scss"
+import "@/styles/itemlist.scss";
 import ProductCard from "./ProductCard";
-import useSwr from "swr"
+import useSwr from "swr";
 import fetcher from "../utils/fetcher";
 
+const ItemList = ({ categoryId }: { categoryId: string }) => {
+  let { data, isLoading, error } = useSwr(
+    "http://localhost:3000/api/getProducts",
+    fetcher
+  );
+  let { data: subcategories } = useSwr(
+    `http://localhost:3000/api/getSubCategory?categoryId=${categoryId}`,
+    fetcher
+  );
+  subcategories = subcategories?.msg.map((item:any)=>item.id);
+  let subcategoriesSet = new Set(subcategories);
 
-
-
-
-const ItemList = ({categoryId}:{categoryId:string}) => {
-  let {data,isLoading,error} = useSwr("http://localhost:3000/api/getProducts",fetcher);
-  console.log(data?.products)
-  let products = data?.products?.filter(item=>item.categoryId===categoryId)
-  console.log(products)
-  if(isLoading){
-    return <p>Loading...</p>
+  let productWithCategory = data?.products.filter((item:any) =>
+    subcategoriesSet.has(item.subcategoryId)
+  );
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
-  if(error){
-    return <p>Encountered Error fetching data</p>
+  if (error) {
+    return <p>Encountered Error fetching data</p>;
   }
 
   return (
     <div className="itemlist">
       <ul className="items">
-        {products?.map((item:any) => (
-          <ProductCard item={item} key={item.id}/>
+        {productWithCategory?.map((item: any) => (
+          <ProductCard item={item} key={item.id} />
         ))}
       </ul>
     </div>
   );
-}
+};
 
-export default ItemList
+export default ItemList;

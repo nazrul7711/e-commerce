@@ -14,7 +14,7 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
     `/api/getCategory?category=${categoryId}`,
     fetcher
   );
-   let { data: subCatagoryDet } = useSwr(
+  let { data: subCatagoryDet } = useSwr(
     `/api/getSubCategory?categoryId=${categoryId}`,
     fetcher
   );
@@ -24,8 +24,8 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
   if (error) {
     return <p>Error occured while loading data</p>;
   }
-  console.log(subCatagoryDet.msg,"sub")
-
+  console.log(subCatagoryDet?.msg, "sub");
+  //652113b70f3e63ffe2d14291
   return (
     <div className="products">
       <h1 className="title">{data?.title} Section</h1>
@@ -33,14 +33,12 @@ const ProductsId = ({ params }: { params: { categoryId: string } }) => {
         <div className="left">
           <div>
             <h1>Product Categories</h1>
-            {subCatagoryDet?.msg.map((item:any) => (
-              
-              <div className="item">
+            {subCatagoryDet?.msg.map((item: any) => (
+              <div className="item" key={item.id}>
                 <input type="checkbox" id={item.title} />
                 <label htmlFor={item.title}>{item.title}</label>
               </div>
             ))}
-
           </div>
           <div>
             <h1>Filter By Price</h1>
