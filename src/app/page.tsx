@@ -75,5 +75,5 @@ what is priority in Image
 allways define height and width if using remote images link
 
 
-
+Order >email,stripeId,products
  */

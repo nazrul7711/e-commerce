@@ -4,9 +4,11 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { ProductType, onreset, removeFromCart } from "../redux/cartReducer";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 const Cart = () => {
   let items = useSelector<RootState, ProductType[]>(
-    (state) => state.carts.products
+    (state) => state.cart.products
   );
   let dispatch = useDispatch<AppDispatch>();
   let totalPrice = ()=>{
@@ -14,7 +16,24 @@ const Cart = () => {
     items.forEach(item=>total+=item.quantity*item.price)
     return total
   }
-  console.log(typeof totalPrice,"likk")
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  let {data:session}=useSession()
+  const checkoutHandler = async ()=>{
+    let stripe = await stripePromise
+    let response = await fetch("http://localhost:3000/api/checkout",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        items,
+        email:session?.user?.email
+      })
+    });
+    let data = await response.json()
+    if(response.ok){
+      console.log(data)
+      stripe?.redirectToCheckout({sessionId:data.id})
+    }
+  }
   return (  
     <div className="cartdiv">
       <h1>Products in your cart</h1>
@@ -42,7 +61,7 @@ const Cart = () => {
         <h1>SUBTOTAL</h1>
         <div className="price">${totalPrice()}</div>
       </div>
-      <button className="proceed">PROCEED TO CHECKOUT</button>
+      <button className="proceed" onClick={checkoutHandler}>PROCEED TO CHECKOUT</button>
       <p className="reset" onClick={()=>dispatch(onreset())}>RESET CART</p>
     </div>
   );

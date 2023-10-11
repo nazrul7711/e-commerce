@@ -12,12 +12,20 @@ import "@/styles/navbar.scss";
 import Link from "next/link";
 import Cart from "./Cart";
 import { signOut, useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { ProductType } from "../redux/cartReducer";
 
 const Navbar = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const loggedIn = false;
+  let products = useSelector<RootState,ProductType[]>(state=>state.cart.products)
   const { status } = useSession();
   const isAuthenticated = status==="authenticated"
+  let totalItemsLength = ()=>{
+    let count = 0
+    products.forEach(item=>count+=item.quantity)
+    return count
+  }
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -80,7 +88,7 @@ const Navbar = () => {
               {isAuthenticated && (
                 <div className="cart" onClick={() => setOpen((p) => !p)}>
                   <AiOutlineShoppingCart />
-                  <span>0</span>
+                  <span>{totalItemsLength()}</span>
                 </div>
               )}
 

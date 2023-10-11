@@ -4,44 +4,39 @@ import "@/styles/product.scss";
 import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
 import { BiGitCompare } from "react-icons/bi";
 import Image from "next/image";
-import useSwr from "swr"
+import useSwr from "swr";
 import fetcher from "@/app/utils/fetcher";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/redux/store";
 import { ProductType, addToCart } from "@/app/redux/cartReducer";
 
-const Product = ({params}:{params:{productId:string}}) => {
+const Product = ({ params }: { params: { productId: string } }) => {
   const [imageNum, setImageNum] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  let productId = params.productId
+  let productId = params.productId;
 
-  let ad = useSelector((state:RootState)=>state.carts.products)
-  console.log(ad,"kill")
-  let dispatch = useDispatch<AppDispatch>()
+  let dispatch = useDispatch<AppDispatch>();
 
   let { data, isLoading, error } = useSwr(
     `/api/getProduct?id=${productId}`,
     fetcher
   );
 
+  let images = [data?.img, data?.img2];
 
-
-
-  let images = [data?.img,data?.img2]
-
-  let currentProduct:ProductType = {
-    title:data?.title,
-    description:data?.desc,
-    price:data?.price,
+  let currentProduct: ProductType = {
+    title: data?.title,
+    description: data?.desc,
+    price: data?.price,
     quantity,
-    id:data?.id,
-    images
-    }
-  if(isLoading){
-    return <p>Loading...</p>
+    id: data?.id,
+    images,
+  };
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
-  if(error){
-    return <p>Some error occured while loading data</p>
+  if (error) {
+    return <p>Some error occured while loading data</p>;
   }
   return (
     <div className="product">
@@ -51,16 +46,13 @@ const Product = ({params}:{params:{productId:string}}) => {
             <Image src={data?.img} width={100} height={100} alt="top" />
           </div>
           <div className="clickable" onClick={() => setImageNum(1)}>
-            {data?.img2 && <Image src={data?.img2} width={100} height={100} alt="top" />}
+            {data?.img2 && (
+              <Image src={data?.img2} width={100} height={100} alt="top" />
+            )}
           </div>
         </div>
         <div className="right">
-          <Image
-            src={images[imageNum]}
-            width={400}
-            height={500}
-            alt="top"
-          />
+          <Image src={images[imageNum]} width={400} height={500} alt="top" />
         </div>
       </div>
       <div className="right">
@@ -68,11 +60,16 @@ const Product = ({params}:{params:{productId:string}}) => {
         <div className="price">${data?.price}</div>
         <div className="desc">{data?.desc}</div>
         <div className="increasesection">
-          <button onClick={() => setQuantity((p) => p === 1 ? 1: p - 1)}>-</button>
+          <button onClick={() => setQuantity((p) => (p === 1 ? 1 : p - 1))}>
+            -
+          </button>
           <span>{quantity}</span>
-          <button onClick={() => setQuantity((p) => p +1)}>+</button>
+          <button onClick={() => setQuantity((p) => p + 1)}>+</button>
         </div>
-        <button className="cart" onClick={()=>dispatch(addToCart(currentProduct))}>
+        <button
+          className="cart"
+          onClick={() => dispatch(addToCart(currentProduct))}
+        >
           <AiOutlineShoppingCart />
           ADD TO CART
         </button>
