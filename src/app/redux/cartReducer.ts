@@ -14,13 +14,15 @@ export interface ProductType {
   images: string[];
 }
 
-interface CounterState {
+interface CartState {
   products: ProductType[];
+  orders: ProductType[];
 }
 
 // Define the initial state using that type
-const initialState: CounterState = {
+const initialState: CartState = {
   products: [],
+  orders: [],
 };
 
 export const cartSlice = createSlice({
@@ -43,12 +45,17 @@ export const cartSlice = createSlice({
     onreset: (state) => {
       state.products = [];
     },
+    addOrders:(state,action)=>{
+      state.orders  = action.payload
+    },
+    resetOrders:(state)=>{
+      state.orders = []
+    }
   },
 });
 
-export const { addToCart, removeFromCart, onreset } = cartSlice.actions;
+export const { addToCart, removeFromCart, onreset,addOrders,resetOrders } = cartSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value
+
 
 export default cartSlice.reducer;

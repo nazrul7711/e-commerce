@@ -3,13 +3,15 @@ import Image from "next/image";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { ProductType, onreset, removeFromCart } from "../redux/cartReducer";
+import { ProductType, addOrders, onreset, removeFromCart, resetOrders } from "../redux/cartReducer";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 const Cart = () => {
   let items = useSelector<RootState, ProductType[]>(
     (state) => state.cart.products
   );
+
+
   let dispatch = useDispatch<AppDispatch>();
   let totalPrice = ()=>{
     let total = 0
@@ -30,8 +32,9 @@ const Cart = () => {
     });
     let data = await response.json()
     if(response.ok){
-      console.log(data)
+      dispatch(addOrders(items))
       stripe?.redirectToCheckout({sessionId:data.id})
+      dispatch(resetOrders())
     }
   }
   return (  
