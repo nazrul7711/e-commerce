@@ -49,7 +49,7 @@ const Cart = () => {
       <h1>Products in your cart</h1>
       <ul>
         {items.map((item: ProductType) => (
-          <div className="item">
+          <div className="item" key={item.id}>
             <Image src={item.images[0]} height={100} width={90} alt="img" />
             <div className="details">
               <div className="title">{item.title}</div>

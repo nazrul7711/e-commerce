@@ -20,36 +20,32 @@ const AddProduct = () => {
     category: string;
   }
   interface FormTypeII {
-    title: String;
-    desc?: String;
-    img?: String;
-    subcategories?: String;
+    title: string;
+    desc?: string;
+    img?: string;
+    subcategories?: string;
   }
-  const submitHandler3: SubmitHandler<FormTypeII> = async (d) => {
+  const submitHandler3 = async (d:any) => {
     let res = await axios.post("/api/addSubcategory", {
       title: d.title,
     });
-
-
   };
-  const submitHandler2: SubmitHandler<FormTypeII> = async (d) => {
+  const submitHandler2 = async (d:any) => {
     let formData = new FormData();
     formData.append("title", d.title);
-    formData.append("desc", d.desc);
-    formData.append("subcategories", d.subcategories);
-    formData.append("img", d.img[0]);
-    let res = await axios.post("/api/addCategory", formData, {
+    formData.append("desc", d.desc!);
+    formData.append("subcategories", d.subcategories!);
+    formData.append("img", d.img ? d.img[0] : "");
+    await axios.post("/api/addCategory", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res);
   };
-  const submitHandler: SubmitHandler<FormType> = async (d) => {
+  const submitHandler = async (d:any) => {
     let formData = new FormData();
-    console.log(d);
     formData.append("productImage", d.productImg[0]);
-    formData.append("productImage2", d.productImg2[0]);
+    formData.append("productImage2", d.productImg2 ? d.productImg2[1] : "");
     formData.append("title", d.title);
     formData.append("description", d.description);
     formData.append("price", d.price);

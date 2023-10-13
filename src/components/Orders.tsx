@@ -10,7 +10,7 @@ const OrderList = () => {
   return (
     <div className="orders">
       {items.map((item) => (
-        <div className="order">
+        <div className="order" key={item.id}>
           <div>
             <Image src={item.images[0]} height={100} width={90} alt="img" />
           </div>
