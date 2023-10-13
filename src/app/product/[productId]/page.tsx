@@ -5,10 +5,10 @@ import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
 import { BiGitCompare } from "react-icons/bi";
 import Image from "next/image";
 import useSwr from "swr";
-import fetcher from "@/app/utils/fetcher";
+import fetcher from "@/utils/fetcher";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/redux/store";
-import { ProductType, addToCart } from "@/app/redux/cartReducer";
+import { AppDispatch, RootState } from "@/redux/store";
+import { ProductType, addToCart } from "@/redux/cartReducer";
 
 const Product = ({ params }: { params: { productId: string } }) => {
   const [imageNum, setImageNum] = useState<number>(0);

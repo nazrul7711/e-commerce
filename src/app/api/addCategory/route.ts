@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/utils/auth";
+import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import {
@@ -7,8 +7,8 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { app } from "@/app/utils/firebase";
-import prismadb from "@/app/utils/prismaclient"
+import { app } from "@/utils/firebase";
+import prismadb from "@/utils/prismaclient";
 
 export async function POST(req: Request) {
   let session = await getServerSession(authOptions);
@@ -21,12 +21,9 @@ export async function POST(req: Request) {
   let desc: string = res.get("desc") as unknown as string;
   let img: File = res.get("img") as unknown as File;
 
-
-
   const storage = getStorage(app);
   const storageRef = ref(storage, title);
   const uploadTask = uploadBytesResumable(storageRef, await img.arrayBuffer());
-
 
   let imgLink = () => {
     return new Promise((resolve, reject) => {
@@ -50,18 +47,17 @@ export async function POST(req: Request) {
       );
     });
   };
-  let link = await imgLink() as string
+  let link = (await imgLink()) as string;
 
-  
   let newCategory = await prismadb.category.create({
     data: {
       title,
       desc,
-      img: link
+      img: link,
     },
   });
-  if(newCategory){
-    return NextResponse.json({ msg:"category created" });
+  if (newCategory) {
+    return NextResponse.json({ msg: "category created" });
   }
-  return NextResponse.json({msg:"category creation unsuccessful"});
+  return NextResponse.json({ msg: "category creation unsuccessful" });
 }

@@ -1,7 +1,7 @@
-import { authOptions } from "@/app/utils/auth";
+import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import prismadb from "@/app/utils/prismaclient";
+import prismadb from "@/utils/prismaclient";
 
 export async function POST(req: Request) {
   let session = await getServerSession(authOptions);
@@ -12,12 +12,12 @@ export async function POST(req: Request) {
   let title = data.title;
 
   let subcategory = await prismadb.subcategory.create({
-    data:{
-      title
-    }
-  })
-  if(subcategory){
-    return NextResponse.json({ msg: subcategory});
+    data: {
+      title,
+    },
+  });
+  if (subcategory) {
+    return NextResponse.json({ msg: subcategory });
   }
 
   // let categorys = await prismadb.category.findMany();

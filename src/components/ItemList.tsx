@@ -12,10 +12,10 @@ const ItemList = ({ categoryId }: { categoryId: string }) => {
     `http://localhost:3000/api/getSubCategory?categoryId=${categoryId}`,
     fetcher
   );
-  subcategories = subcategories?.msg.map((item:any)=>item.id);
+  subcategories = subcategories?.msg.map((item: any) => item.id);
   let subcategoriesSet = new Set(subcategories);
 
-  let productWithCategory = data?.products.filter((item:any) =>
+  let productWithCategory = data?.products.filter((item: any) =>
     subcategoriesSet.has(item.subcategoryId)
   );
   if (isLoading) {

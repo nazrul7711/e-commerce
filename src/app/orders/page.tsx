@@ -1,16 +1,15 @@
-import { useSelector } from "react-redux"
-import { RootState } from "../redux/store"
-import { ProductType } from "../redux/cartReducer"
-import Link from "next/link"
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { ProductType } from "../../redux/cartReducer";
+import "@/styles/order.scss";
+import OrderList from "@/components/Orders";
 
 const Orders = () => {
-  let orders = useSelector<RootState,ProductType[]>((state)=>state.cart.orders)
   return (
-    <div>
-      
+    <div className="orders">
+      <OrderList/>
     </div>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;

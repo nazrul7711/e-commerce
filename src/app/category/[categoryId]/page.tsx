@@ -1,9 +1,9 @@
 "use client";
-import ItemList from "@/app/components/ItemList";
-import fetcher from "@/app/utils/fetcher";
+import ItemList from "@/components/ItemList";
+import fetcher from "@/utils/fetcher";
 import "@/styles/products.scss";
 import Image from "next/image";
-import {  useState } from "react";
+import { useState } from "react";
 import useSwr from "swr";
 
 const ProductsId = ({ params }: { params: { categoryId: string } }) => {

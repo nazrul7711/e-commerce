@@ -1,12 +1,10 @@
 import "@/styles/layout.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import SessProvider from "./providers/SessionProvider";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import ReduxProvider from "./providers/ReduxProvider";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import SessProvider from "../providers/SessionProvider";
+import ReduxProvider from "../providers/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessProvider>
-          <ReduxProvider>
+        <ReduxProvider>
+          <SessProvider>
             <Navbar />
             {children}
             <Footer />
-          </ReduxProvider>
-        </SessProvider>
+          </SessProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

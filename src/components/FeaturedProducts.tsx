@@ -2,10 +2,11 @@ import React from "react";
 import "@/styles/featured.scss";
 import ProductCard from "./ProductCard";
 import getProducts from "../utils/productsData";
+import OrderList from "./Orders";
 
 const FeaturedProducts = async ({ type }: { type: string }) => {
   let { products } = await getProducts();
-  console.log(products);
+
 
   return (
     <div className="featured">
@@ -25,6 +26,7 @@ const FeaturedProducts = async ({ type }: { type: string }) => {
           ))}
         </ul>
       </div>
+
     </div>
   );
 };

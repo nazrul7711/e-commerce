@@ -1,8 +1,13 @@
 
 import "@/styles/mainpage.scss";
-import Slider from "./components/Slider";
-import FeaturedProducts from "./components/FeaturedProducts";
-import Categories from "./components/Categories";
+import Slider from "../components/Slider";
+import FeaturedProducts from "../components/FeaturedProducts";
+import Categories from "../components/Categories";
+import { Provider, useSelector } from "react-redux";
+import { RootState, store } from "@/redux/store";
+import { ProductType } from "@/redux/cartReducer";
+import OrderList from "@/components/Orders";
+import ReduxProvider from "@/providers/ReduxProvider";
 
 export default function Home() {
 
@@ -10,8 +15,9 @@ export default function Home() {
     <main className="mainpage">
       <Slider />
       <FeaturedProducts type="featured" />
-      <Categories/>
+      <Categories />
       <FeaturedProducts type="trending" />
+      
     </main>
   );
 }

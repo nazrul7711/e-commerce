@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prismadb from "@/app/utils/prismaclient";
+import prismadb from "@/utils/prismaclient";
 
 import {
   getStorage,
@@ -7,7 +7,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { app } from "@/app/utils/firebase";
+import { app } from "@/utils/firebase";
 
 export async function POST(req: Request) {
   let data = await req.formData();
@@ -25,7 +25,6 @@ export async function POST(req: Request) {
   const isNew = Boolean(data.get("isNew") as string);
   const oldPrice = parseInt(data.get("oldprice") as string);
   const subcategory = data.get("subcategory") as string;
-
 
   let files = [productImg];
 
@@ -70,7 +69,7 @@ export async function POST(req: Request) {
       price: price,
       isNew: isNew,
       oldPrice,
-      subcategoryId:subcategory,
+      subcategoryId: subcategory,
     },
   });
   return NextResponse.json({ message: newProduct });

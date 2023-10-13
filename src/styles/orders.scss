@@ -1,0 +1,12 @@
+@import "variables";
+.orders{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  .order{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+}

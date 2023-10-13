@@ -1,7 +1,7 @@
-import { authOptions } from "@/app/utils/auth";
+import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import prismadb from "@/app/utils/prismaclient";
+import prismadb from "@/utils/prismaclient";
 
 export async function GET(req: Request) {
   let session = await getServerSession(authOptions);
@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   });
   if (product) {
     return NextResponse.json(product);
-  }else{
-    return NextResponse.json({msg:"no product was available"});
+  } else {
+    return NextResponse.json({ msg: "no product was available" });
   }
 }

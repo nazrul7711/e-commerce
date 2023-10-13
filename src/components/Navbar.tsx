@@ -18,14 +18,18 @@ import { ProductType } from "../redux/cartReducer";
 
 const Navbar = () => {
   const [open, setOpen] = useState<boolean>(false);
-  let products = useSelector<RootState,ProductType[]>(state=>state.cart.products)
+  let products = useSelector<RootState, ProductType[]>(
+    (state) => state.cart.products
+  );
+  
+
   const { status } = useSession();
-  const isAuthenticated = status==="authenticated"
-  let totalItemsLength = ()=>{
-    let count = 0
-    products.forEach(item=>count+=item.quantity)
-    return count
-  }
+  const isAuthenticated = status === "authenticated";
+  let totalItemsLength = () => {
+    let count = 0;
+    products.forEach((item) => (count += item.quantity));
+    return count;
+  };
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -99,7 +103,7 @@ const Navbar = () => {
               )}
               {isAuthenticated && (
                 <div className="item signout">
-                  <div onClick={()=>signOut()}>SignOut</div>
+                  <div onClick={() => signOut()}>SignOut</div>
                 </div>
               )}
             </div>

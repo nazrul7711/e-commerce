@@ -1,4 +1,4 @@
-import { ProductType } from "@/app/redux/cartReducer";
+import { ProductType } from "@/redux/cartReducer";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
